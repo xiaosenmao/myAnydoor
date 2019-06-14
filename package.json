@@ -8,8 +8,8 @@
     "fix": "eslint --fix ."
   },
   "pre-commit": [
-	  "fix",
-	  "lint"
+    "fix",
+    "lint"
   ],
   "repository": {
     "type": "git",
@@ -30,5 +30,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "handlebars": "^4.1.2"
   }
 }
