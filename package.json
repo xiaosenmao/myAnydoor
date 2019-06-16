@@ -4,6 +4,7 @@
   "description": "Sample NodeJs Static Web Server",
   "main": "index.js",
   "scripts": {
+	"dev": "node ./src/app.js",
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },

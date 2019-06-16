@@ -5,6 +5,10 @@ const promisify = require('util').promisify;  // 在 Node 8+ 中，你可以使�
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 const config = require('../config/defaultConfig');
+const mime = require('./mime');
+const compress = require('./compress');
+const range = require('./range');
+const isFresh = require('./cache');
 
 const tplPath = path.join(__dirname, '../template/dir.tpl');
 const source = fs.readFileSync(tplPath, 'utf8');
@@ -14,9 +18,31 @@ module.exports = async function (req, res, filePath) {
 	try {
 		const stats = await stat(filePath);
 		if (stats.isFile()) {
-			res.statusCode = 404;
-			res.setHeader('Content-Type', 'text/plain');
-			fs.createReadStream(filePath).pipe(res);  // 也可以使用 fs.readFile
+			const contentType = mime(filePath);
+			res.setHeader('Content-Type', contentType);
+
+			if (isFresh(stats, req, res)) {
+				res.statusCode = 304;
+				res.end();
+				return;
+			}
+
+			let rs;
+			const { code, start, end } = range(stat.size, req, res);
+			if (code === 200) {
+				res.statusCode = 200;
+				rs = fs.createReadStream(filePath);
+			} else {
+				// 部分内容
+				res.statusCode = 206;
+				rs = fs.createReadStream(filePath, {start, end});
+			}
+			// 尚未压缩
+			if (filePath.match(config.compress)) {
+				rs = compress(rs, req, res);
+			}
+			rs.pipe(res);
+
 		} else if (stats.isDirectory()) {
 			const filesList = await readdir(filePath);
 			res.statusCode = 200;
@@ -31,6 +57,7 @@ module.exports = async function (req, res, filePath) {
 			res.end( template(data) );
 		}
 	} catch (error) {
+		console.info(error);
 		res.statusCode = 404;
 		res.setHeader('Content-Type', 'text/plain');
 		res.end(`${filePath} is not a directory or file`);
