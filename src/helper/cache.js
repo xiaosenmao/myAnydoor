@@ -25,8 +25,8 @@ module.exports = function isFresh(stats, req, res) {
 	refreshRes(stats, res);
 
 	const reqHeader = req.headers;
-	const lastModified = reqHeader['if-modified-since'];
-	const etag = reqHeader['if-none-match'];
+	const lastModified = reqHeader['If-Modified-Since'];
+	const etag = reqHeader['If-None-Match'];
 
 	if (!lastModified && !etag) {
 		return false;
