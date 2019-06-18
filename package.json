@@ -1,10 +1,13 @@
 {
   "name": "myAnydoor",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "Sample NodeJs Static Web Server",
-  "main": "index.js",
+  "main": "src/app.js",
+  "bin": {
+	"myAnydoor": "bin/myAnydoor"
+  },
   "scripts": {
-    "dev": "node ./src/app.js",
+    "dev": "node ./src/index.js",
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
@@ -34,6 +37,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "handlebars": "^4.1.2"
+    "handlebars": "^4.1.2",
+    "yargs": "^13.2.4"
   }
 }
