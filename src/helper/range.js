@@ -19,5 +19,5 @@ module.exports = (totalSize, req, res) => {
 		code: 206,
 		start: parseInt(start),
 		end: parseInt(end)
-	}
+	};
 };
