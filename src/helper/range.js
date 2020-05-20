@@ -1,4 +1,4 @@
-module.exports = (totalSize, req, res) => {
+export default function range(totalSize, req, res) {
 	const range = req.headers['range'];
 	if (!range) {
 		return {code: 200};
@@ -20,4 +20,4 @@ module.exports = (totalSize, req, res) => {
 		start: parseInt(start),
 		end: parseInt(end)
 	};
-};
+}

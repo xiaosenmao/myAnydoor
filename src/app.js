@@ -1,13 +1,13 @@
-const http = require('http');
-const path = require('path');
-const chalk = require('chalk');
-const conf = require('./config/defaultConfig');
-const route = require('./helper/route');
-const openUrl = require('./helper/openUrl');
+import http from 'http';
+import path from 'path';
+import chalk from 'chalk';
+import conf from './config/defaultConfig';
+import route from './helper/route';
+import openUrl from './helper/openUrl';
 
-class Server {
+export default class Server {
 	constructor(config) {
-		this.conf = Object.assign({}, conf, config);
+		this.conf = { ...conf, ...config };
 	}
 
 	start() {
@@ -25,7 +25,3 @@ class Server {
 		});
 	}
 }
-
-module.exports = Server;
-
-

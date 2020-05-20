@@ -1,3 +1,8 @@
-build/
 node_modules
+
+webpack.config.js
 test
+jest.config.js
+
+build/
+lib/

@@ -1,19 +1,19 @@
-const fs = require('fs');
-const path = require('path');
-const Handlebars = require('handlebars');
-const promisify = require('util').promisify;  // 在 Node 8+ 中，你可以使用 util.promisify 转换一个异步函数，以返回一个 promise
+import fs from 'fs';
+import path from 'path';
+import Handlebars from 'handlebars';
+import mime from './mime';
+import compress from './compress';
+import range from './range';
+import isFresh from './cache';
+import { promisify } from 'util';  // 在 Node 8+ 中，你可以使用 util.promisify 转换一个异步函数，以返回一个 promise
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
-const mime = require('./mime');
-const compress = require('./compress');
-const range = require('./range');
-const isFresh = require('./cache');
 
-const tplPath = path.join(__dirname, '../template/dir.tpl');
+const tplPath = 'lib/template/dir.tpl';
 const source = fs.readFileSync(tplPath, 'utf8');
 const template= Handlebars.compile(source);
 
-module.exports = async function (req, res, filePath, config) {
+export default async function route(req, res, filePath, config) {
 	try {
 		const stats = await stat(filePath);
 		if (stats.isFile()) {
@@ -61,4 +61,4 @@ module.exports = async function (req, res, filePath, config) {
 		res.setHeader('Content-Type', 'text/plain');
 		res.end(`${filePath} is not a directory or file`);
 	}
-};
+}

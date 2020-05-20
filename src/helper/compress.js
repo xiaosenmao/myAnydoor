@@ -1,15 +1,17 @@
-const { createGzip, createDeflate } = require('zlib');
+import { createGzip, createDeflate } from 'zlib';
 
-module.exports = (rs, req, res) => {
+export default function compress(rs, req, res) {
 	const acceptEncoding = req.headers['accept-encoding'];
 
 	if (!acceptEncoding || !acceptEncoding.match(/\b(gzip|deflate)\b/)) {
 		return rs;
-	} else if (acceptEncoding.match(/\bgzip\b/)) {
+	}
+	else if (acceptEncoding.match(/\bgzip\b/)) {
 		res.setHeader('Content-Encoding', 'gzip');
 		return rs.pipe(createGzip());
-	} else if (acceptEncoding.match(/\bdeflate\b/)) {
+	}
+	else if (acceptEncoding.match(/\bdeflate\b/)) {
 		res.setHeader('Content-Encoding', 'deflate');
 		return rs.pipe(createDeflate());
 	}
-};
+}

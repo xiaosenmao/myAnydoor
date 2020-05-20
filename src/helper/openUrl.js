@@ -1,11 +1,10 @@
-const { exec } = require('child_process');
+import { exec } from 'child_process';
 
-module.exports = url => {
-	const { platform } = process;
-
-	if (platform === 'darwin') {
-		exec(`open ${url}`);
-	} else if (platform === 'win32') {
-		exec(`open ${url}`);
-	}
+const commandMap = {
+	darwin: url => exec(`open ${url}`),
+	win32: url => exec(`start ${url}`)
 };
+
+export default function openUrl(url) {
+	commandMap[process.platform](url);
+}

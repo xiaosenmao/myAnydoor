@@ -1,4 +1,4 @@
-const { cache } = require('../config/defaultConfig');
+import cache from '../config/defaultConfig';
 
 function refreshRes(stats, res) {
 	const { maxAge, expires, cacheControl, lastModified, etag } = cache;
@@ -21,7 +21,7 @@ function refreshRes(stats, res) {
 }
 
 // 是否新鲜
-module.exports = function isFresh(stats, req, res) {
+export default function isFresh(stats, req, res) {
 	refreshRes(stats, res);
 
 	const reqHeader = req.headers;
@@ -41,4 +41,8 @@ module.exports = function isFresh(stats, req, res) {
 	}
 
 	return true;
-};
+}
+
+export function add(a, b) {
+	return a + b;
+}

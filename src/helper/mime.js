@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 const mimeTypes = {
 	'css': 'text/css',
@@ -21,7 +21,7 @@ const mimeTypes = {
 	'xml': 'text/xml'
 };
 
-module.exports = filePath => {
+export default function mime(filePath) {
 	let ext = path.extname(filePath).split('.').pop().toLowerCase();
 
 	if (!ext) {
@@ -29,4 +29,4 @@ module.exports = filePath => {
 	}
 
 	return mimeTypes[ext] || mimeTypes['txt'];
-};
+}

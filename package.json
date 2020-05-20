@@ -2,12 +2,15 @@
   "name": "youranydoor",
   "version": "0.1.1",
   "description": "Sample NodeJs Static Web Server",
-  "main": "src/app.js",
+  "main": "lib/js/bundle.js",
   "bin": {
-	"youranydoor": "bin/youranydoor"
+    "youranydoor": "bin/youranydoor"
   },
   "scripts": {
-    "dev": "node ./src/index.js",
+	"build": "webpack --config ./build/webpack.config.js --colors --process",
+	"postbuild": "node ./build/post-build.js",
+    "test": "node ./node_modules/jest/bin/jest.js",
+    "dev": "node ./lib/js/bundle.js",
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
@@ -31,9 +34,17 @@
   },
   "homepage": "https://github.com/xiaosenmao/myAnydoor#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.1.0",
     "eslint": "^5.16.0",
-    "pre-commit": "^1.2.2"
+    "jest": "^26.0.1",
+    "mkdirp": "^1.0.4",
+    "pre-commit": "^1.2.2",
+    "shelljs": "^0.8.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "chalk": "^2.4.2",

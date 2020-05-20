@@ -3,13 +3,13 @@ module.exports = {
 		"browser": false,
 		"node": true,
 		"es6": true,
-		"mocha": true
+		"jest": true
     },
 	"extends": "eslint:recommended",
 	"parser": "babel-eslint",
     "parserOptions": {
 		"ecmaVersion": 2018,
-		"sourceType": "script"
+		"sourceType": "module"
 	},
 	"globals": {
 		// "window": true
