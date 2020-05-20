@@ -7,7 +7,7 @@
     "youranydoor": "bin/youranydoor"
   },
   "scripts": {
-	"build": "webpack --config ./build/webpack.config.js --colors --process",
+	"build": "./node_modules/.bin/webpack --config ./build/webpack.config.js --colors --process",
 	"postbuild": "node ./build/post-build.js",
     "test": "node ./node_modules/jest/bin/jest.js",
     "dev": "node ./lib/js/bundle.js",

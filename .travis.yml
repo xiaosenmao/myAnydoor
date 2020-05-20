@@ -3,5 +3,6 @@ node_js:
   - 10.10.0
 script:
   - npm run test
+  - npm run lint
   - npm run fix
   - npm run build
