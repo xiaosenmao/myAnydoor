@@ -18,3 +18,5 @@ youranydoor -h localhost # 设置 host 为 localhost
 
 youranydoor -d /usr # 设置根目录为 /usr
 ```
+
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
